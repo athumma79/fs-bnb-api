@@ -1,9 +1,11 @@
 const express = require("express");
+const cors = require("cors");
 const db = require("../database");
 
 const router = express.Router();
 
 router.use(express.json());
+router.use(cors());
 
 router.get("/bookings", (req, res) => {
     db.query("SELECT * FROM booking", (err, result) => {

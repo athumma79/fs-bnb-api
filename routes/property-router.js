@@ -1,9 +1,11 @@
 const express = require("express");
+const cors = require("cors");
 const db = require("../database");
 
 const router = express.Router();
 
 router.use(express.json());
+router.use(cors());
 
 router.get("", (req, res) => {
     db.query("SELECT * FROM property", (err, result) => {
