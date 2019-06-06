@@ -5,6 +5,15 @@ const router = express.Router();
 
 router.use(express.json());
 
+router.get("", (req, res) => {
+    db.query("SELECT * FROM property", (err, result) => {
+        if(err) {
+            return res.status(500).json({error: err});
+        }
+        res.json(result);
+    });
+});
+
 router.post("", (req, res) => {
     const property = req.body;
     db.query("INSERT INTO property SET ?", property, (err, result) => {

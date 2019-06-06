@@ -5,7 +5,16 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.post("/:id/bookings", (req, res) => {
+router.get("/bookings", (req, res) => {
+    db.query("SELECT * FROM booking", (err, result) => {
+        if(err) {
+            return res.status(500).json({error: err});
+        }
+        res.json(result);
+    });
+});
+
+router.post("/properties/:id/bookings", (req, res) => {
     const body = req.body;
     const booking = {
         dateFrom: body.dateFrom,
@@ -30,7 +39,7 @@ router.post("/:id/bookings", (req, res) => {
     });
 });
 
-router.patch("/:id/bookings/:bookId", (req, res) => {
+router.patch("/properties/:id/bookings/:bookId", (req, res) => {
     const body = req.body;
     const booking = {
         userId: body.id,
@@ -51,7 +60,7 @@ router.patch("/:id/bookings/:bookId", (req, res) => {
     });
 });
 
-router.get("/:id/bookings", (req, res) => {
+router.get("/properties/:id/bookings", (req, res) => {
     const id = req.params.id;
     db.query("SELECT * FROM booking WHERE propertyId = ?", id, (err, result) => {
         if(err) {

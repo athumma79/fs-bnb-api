@@ -5,6 +5,15 @@ const router = express.Router();
 
 router.use(express.json());
 
+router.get("", (req, res) => {
+    db.query("SELECT * FROM provider", (err, result) => {
+        if(err) {
+            return res.status(500).json({error: err});
+        }
+        res.json(result);
+    });
+});
+
 router.post("/authentication", (req, res) => {
     const provider = req.body;
     db.query("SELECT * FROM provider WHERE email = ? && password = ?", [provider.email, provider.password], (err, result) => {
