@@ -18,14 +18,14 @@ router.get("", (req, res) => {
 
 router.post("/authentication", (req, res) => {
     const user = req.body;
-    db.query("SELECT * FROM user WHERE email = ? && password = ?", [user.email, user.password], (err, result) => {
+    db.query("SELECT * FROM user WHERE email = ? AND password = ?", [user.email, user.password], (err, result) => {
         if(err) {
             return res.status(500).json({error: err});
         }
         if(result.length === 0) {
             return res.status(400).json({message: "invalid login credentials"});
         }
-        res.json(result);
+        res.json(result[0]);
     });
 });
 
@@ -46,6 +46,16 @@ router.post("", (req, res) => {
             password: user.password
         }
         res.json(newUser);
+    });
+});
+
+router.get("/:id", (req, res) => {
+    const id = req.params.id;
+    db.query("SELECT * FROM user WHERE id = ?", id, (err, result) => {
+        if(err) {
+            return res.status(500).json({error: err});
+        }
+        res.json(result[0]);
     });
 });
 

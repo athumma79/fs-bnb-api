@@ -25,6 +25,7 @@ router.post("/properties/:id/bookings", (req, res) => {
         propertyId: req.params.id,
         status: "NEW"
     }
+    console.log(booking);
     db.query("INSERT INTO booking SET ?", booking, (err, result) => {
         if(err) {
             return res.status(500).json({error: err});
@@ -49,7 +50,7 @@ router.patch("/properties/:id/bookings/:bookId", (req, res) => {
     }
     const bookingId = req.params.bookId;
     const propertyId = req.params.id;
-    db.query("UPDATE booking SET ? WHERE id = ? && propertyId = ?", [booking, bookingId, propertyId], (err1) => {
+    db.query("UPDATE booking SET ? WHERE id = ? AND propertyId = ?", [booking, bookingId, propertyId], (err1) => {
         if(err1) {
             return res.status(500).json({error: err1});
         }

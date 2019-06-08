@@ -55,7 +55,7 @@ router.get("/:id", (req, res) => {
         if(err) {
             return res.status(500).json({error: err});
         }
-        res.json(result);
+        res.json(result[0]);
     });
 });
 

@@ -18,7 +18,7 @@ router.get("", (req, res) => {
 
 router.post("/authentication", (req, res) => {
     const provider = req.body;
-    db.query("SELECT * FROM provider WHERE email = ? && password = ?", [provider.email, provider.password], (err, result) => {
+    db.query("SELECT * FROM provider WHERE email = ? AND password = ?", [provider.email, provider.password], (err, result) => {
         if(err) {
             return res.status(500).json({error: err});
         }
@@ -46,6 +46,16 @@ router.post("", (req, res) => {
             password: provider.password
         }
         res.json(newProvider);
+    });
+});
+
+router.get("/:id", (req, res) => {
+    const id = req.params.id;
+    db.query("SELECT * FROM provider WHERE id = ?", id, (err, result) => {
+        if(err) {
+            return res.status(500).json({error: err});
+        }
+        res.json(result[0]);
     });
 });
 
