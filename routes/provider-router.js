@@ -25,7 +25,7 @@ router.post("/authentication", (req, res) => {
         if(result.length === 0) {
             return res.status(400).json({message: "invalid login credentials"});
         }
-        res.json(result);
+        res.json(result[0]);
     });
 });
 

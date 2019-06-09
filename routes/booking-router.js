@@ -45,7 +45,6 @@ router.post("/properties/:id/bookings", (req, res) => {
 router.patch("/properties/:id/bookings/:bookId", (req, res) => {
     const body = req.body;
     const booking = {
-        userId: body.id,
         status: body.status
     }
     const bookingId = req.params.bookId;

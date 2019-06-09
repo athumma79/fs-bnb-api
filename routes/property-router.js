@@ -59,6 +59,16 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.get("/providers/:id", (req, res) => {
+    const id = req.params.id;
+    db.query("SELECT * FROM property WHERE providerId = ?", id, (err, result) => {
+        if(err) {
+            return res.status(500).json({error: err});
+        }
+        res.json(result);
+    });
+});
+
 router.delete("/:id", (req, res) => {
     const id = req.params.id;
     db.query("DELETE FROM property WHERE id = ?", id, (err, result) => {
