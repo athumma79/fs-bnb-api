@@ -34,7 +34,7 @@ router.post("", (req, res) => {
     db.query("INSERT INTO user SET ?", user, (err, result) => {
         if(err) {
             if(err.code == 'ER_DUP_ENTRY') {
-                return res.status(400).json({message: err.sqlMessage});
+                return res.status(400).json({message: "an account with this email already exists"});
             }
             return res.status(500).json({error: err});
         }
